@@ -2,3 +2,5 @@ Python Version: 3.6 or earlier
 Pyaudio
 Pyttsx3
 SpeechRecognition
+wolframalpha
+requests
