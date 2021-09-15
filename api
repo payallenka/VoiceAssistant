@@ -1,0 +1,64 @@
+def movie_info(title):
+    import requests
+    api_key = 'a203edc8'
+    url = f'http://www.omdbapi.com/?apikey={api_key}&'
+    params = {'t': title, 'j': 'json'}
+    r = requests.get(url, params=params)
+    return r.json()
+
+print(movie_info('The Matrix')) # movie names
+
+def wolfarmapla_api(query):
+    import wolframalpha
+    app_id = 'JHUURP-6T6EQ4Q8RV'
+    client = wolframalpha.Client(app_id)
+    res = client.query(query)
+    answer = next(res.results).text
+    return answer
+
+print(wolfarmapla_api('hottest planet in our solar system')) # query's are normal questions
+
+def coronavirus_update(region = 'global'):
+    ''' returns graph of coronavirus in different countries'''
+    import requests
+    import shutil
+    url = 'https://corona.dnsforfamily.com/graph.png?c='
+    r = requests.get(url + region, stream = True)
+    filename = 'graph.png'
+    if r.status_code == 200:
+        r.raw.decode_content = True
+        with open(filename,'wb') as f:
+            shutil.copyfileobj(r.raw, f)
+        return 'Image sucessfully Downloaded: ',filename
+    else:
+        return 'Image Couldn\'t be retreived'
+
+coronavirus_update('IN') # Country codes
+
+def weather_info(query:str):
+    import requests
+    url = "https://weatherapi-com.p.rapidapi.com/timezone.json"
+    querystring = {"q":query}
+    headers = {
+        'x-rapidapi-host': "weatherapi-com.p.rapidapi.com",
+        'x-rapidapi-key': "a977f43547msh295a12c68272218p1c3bb8jsn2da4807b3f1c"}
+    r = requests.request("GET", url, headers=headers, params=querystring)
+    return r.text
+
+print(weather_info('India')) # Country names/City names
+
+def translate(query,to_language): # to_language should have input with language codes not names
+    import requests
+    url = "https://google-translate1.p.rapidapi.com/language/translate/v2"
+    payload = f"q={query}&target={to_language}&source=en"
+    headers = {
+    'content-type': "application/x-www-form-urlencoded",
+    'accept-encoding': "application/gzip",
+    'x-rapidapi-host': "google-translate1.p.rapidapi.com",
+    'x-rapidapi-key': "a977f43547msh295a12c68272218p1c3bb8jsn2da4807b3f1c"
+    }
+    r = requests.request("POST", url, data=payload, headers=headers)
+    return r.text
+
+print(translate('hello','zh')) # query and language codes
+#https://www.sitepoint.com/iso-2-letter-language-codes/
