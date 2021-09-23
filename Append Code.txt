@@ -1,0 +1,19 @@
+data = []
+def file_read():
+    with open('abc.txt', 'r') as f:
+        global data
+        data = f.read().split('\n')
+
+def file_data_update(old_data,new_data):
+    file_read()
+    data[data.index(old_data)] = new_data
+    with open('abc.txt', 'w') as f:
+        f.write('\n'.join(data)
+
+def file_append(data):
+    with open('abc.txt', 'a') as f:
+        f.write(data)
+
+def file_write(data):
+    with open('abc.txt', 'w') as f:
+        f.write(data)
